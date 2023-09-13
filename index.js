@@ -20,7 +20,28 @@ const { appid, q, units, cnt, language, url} = process.env
 
 const end = `${url}?appid=${appid}&q=${q}&units=${units}&cnt=${cnt}&lang=${language}`
 
-console.log(end)
+axios.get(end).then((res) => {
+    // console.log(res['data'])
+    // console.log(["-----------------------"])
+    return res['data']
+}).then(res=> {
+    // console.log(res.list)
+    // console.log("----------------------------")
+    return res.list
+}).then(res => {
+    for (let previsao of res) {
+        console.log(new Date (+previsao.dt * 1000).toLocaleString())
+        console.log(`Temperatura mínima: ${previsao.main.temp_min}`)
+        console.log(`Temperatura máxima: ${previsao.main.temp_max}`)
+    }
+    console.log("--------------------------")
+})
+
+
+
+
+
+
 
 
 
